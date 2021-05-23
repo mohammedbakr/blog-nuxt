@@ -4,21 +4,16 @@
       <h1>Get the latest teck news!</h1>
     </section>
     <section class="featured-posts">
-      <post-preview
-        id="1"
-        thumbnail="https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg"
-        title="Hello there!"
-        preview-text="this is my first post!"
-      />
+      <post-list />
     </section>
   </div>
 </template>
 
 <script>
-import PostPreview from '@/components/Posts/PostPreview'
+import PostList from '@/components/Posts/PostList'
 export default {
   components: {
-    PostPreview
+    PostList
   }
 }
 </script>
