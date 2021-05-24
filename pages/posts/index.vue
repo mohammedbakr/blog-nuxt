@@ -1,6 +1,6 @@
 <template>
   <div class="posts-page">
-    <post-list />
+    <post-list :is-admin="false" />
   </div>
 </template>
 
