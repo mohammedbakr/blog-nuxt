@@ -4,16 +4,22 @@
       <h1>Get the latest teck news!</h1>
     </section>
     <section class="featured-posts">
-      <post-list />
+      <post-list :posts="posts" />
     </section>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PostList from '@/components/Posts/PostList'
 export default {
   components: {
     PostList
+  },
+  computed: {
+    ...mapGetters({
+      posts: 'posts/posts'
+    })
   }
 }
 </script>

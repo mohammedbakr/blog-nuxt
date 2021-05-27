@@ -1,25 +1,13 @@
 <template>
   <section class="post-list">
     <post-preview
-      id="1"
+      v-for="post in posts"
+      :id="post.id"
+      :key="post.id"
       :is-admin="isAdmin"
-      thumbnail="https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg"
-      title="Hello there!"
-      preview-text="this is my first post!"
-    />
-    <post-preview
-      id="2"
-      :is-admin="isAdmin"
-      thumbnail="https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg"
-      title="Hello there!"
-      preview-text="this is my first post!"
-    />
-    <post-preview
-      id="3"
-      :is-admin="isAdmin"
-      thumbnail="https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg"
-      title="Hello there!"
-      preview-text="this is my first post!"
+      :thumbnail="post.thumbnail"
+      :title="post.title"
+      :preview-text="post.previewText"
     />
   </section>
 </template>
@@ -34,6 +22,10 @@ export default {
     isAdmin: {
       type: Boolean,
       default: false
+    },
+    posts: {
+      type: Array,
+      required: true
     }
   }
 }

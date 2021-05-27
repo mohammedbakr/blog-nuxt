@@ -10,18 +10,24 @@
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
-      <post-list :is-admin="true" />
+      <post-list is-admin :posts="posts" />
     </section>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import PostList from '~/components/Posts/PostList.vue'
 import AppButton from '~/components/UI/AppButton.vue'
 export default {
   components: {
     PostList,
     AppButton
+  },
+  computed: {
+    ...mapGetters({
+      posts: 'posts/posts'
+    })
   }
 }
 </script>

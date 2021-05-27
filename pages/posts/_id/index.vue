@@ -2,17 +2,17 @@
   <div class="single-post-page">
     <section class="post">
       <h1 class="post-title">
-        Title of the post
+        {{ post.title }}
       </h1>
       <div class="post-details">
         <div class="post-detail">
-          Last updated on XXX
+          Last updated on {{ post.updatedDate }}
         </div>
         <div class="post-detail">
-          Written by NAME
+          Written by {{ post.author }}
         </div>
       </div>
-      <p>Content of the post</p>
+      <p>{{ post.content }}</p>
     </section>
     <section class="post-feedback">
       <p>
@@ -25,7 +25,29 @@
 
 <script>
 export default {
-
+  async asyncData (context) {
+    try {
+      const data = await new Promise((resolve, reject) => {
+        // eslint-disable-next-line nuxt/no-timing-in-fetch-data
+        setTimeout(() => {
+          resolve({
+            post: {
+              id: '1',
+              title: 'First Post (ID: ' + context.params.id + ')',
+              previewText: 'this is our first post',
+              author: 'Max',
+              updatedDate: new Date(),
+              content: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, iure? Quidem cumque fugiat sint laboriosam. Repellendus, accusamus provident, cum tempore ullam libero atque, neque quae veniam architecto amet animi. Omnis!'
+            },
+            thumbnail: 'https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg'
+          })
+        }, 1000)
+      })
+      return data
+    } catch (err) {
+      return context.error(err)
+    }
+  }
 }
 </script>
 
