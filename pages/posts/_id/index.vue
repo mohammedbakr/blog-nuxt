@@ -24,28 +24,16 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   async asyncData (context) {
     try {
-      const data = await new Promise((resolve, reject) => {
-        // eslint-disable-next-line nuxt/no-timing-in-fetch-data
-        setTimeout(() => {
-          resolve({
-            post: {
-              id: '1',
-              title: 'First Post (ID: ' + context.params.id + ')',
-              previewText: 'this is our first post',
-              author: 'Max',
-              updatedDate: new Date(),
-              content: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Excepturi, iure? Quidem cumque fugiat sint laboriosam. Repellendus, accusamus provident, cum tempore ullam libero atque, neque quae veniam architecto amet animi. Omnis!'
-            },
-            thumbnail: 'https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg'
-          })
-        }, 1000)
-      })
-      return data
-    } catch (err) {
-      return context.error(err)
+      const res = await axios.get(`https://blog-nuxt-0-default-rtdb.firebaseio.com/posts/${context.params.id}.json`)
+      return {
+        post: res.data
+      }
+    } catch (error) {
+      context.error(error)
     }
   }
 }

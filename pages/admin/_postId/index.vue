@@ -1,23 +1,32 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <admin-post-form :post="loadedPost" />
+      <admin-post-form :post="post" @submit="onSubmit" />
     </section>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 import AdminPostForm from '~/components/admin/AdminPostForm.vue'
 export default {
-  components: { AdminPostForm },
-  data () {
-    return {
-      loadedPost: {
-        author: 'Max',
-        title: 'Awesome Title',
-        content: 'Awesome content',
-        thumbnailLink: 'https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg'
+  components: {
+    AdminPostForm
+  },
+  async asyncData (context) {
+    try {
+      const res = await axios.get(`https://blog-nuxt-0-default-rtdb.firebaseio.com/posts/${context.params.postId}.json`)
+      return {
+        post: { ...res.data, id: context.params.postId }
       }
+    } catch (error) {
+      context.error(error)
+    }
+  },
+  methods: {
+    onSubmit (post) {
+      this.$store.dispatch('posts/editPost', post)
+        .then(() => this.$router.push('/admin'))
     }
   }
 }

@@ -1,32 +1,18 @@
+/* eslint-disable no-console */
+import axios from 'axios'
+
 export const actions = {
-  nuxtServerInit ({ commit }, context) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        commit('posts/setPosts', [
-          {
-            id: '1',
-            title: 'First Post',
-            thumbnail:
-              'https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg',
-            previewText: 'Awesome content!'
-          },
-          {
-            id: '2',
-            title: 'Second Post',
-            thumbnail:
-              'https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg',
-            previewText: 'Awesome content!'
-          },
-          {
-            id: '3',
-            title: 'Third Post',
-            thumbnail:
-              'https://s27389.pcdn.co/wp-content/uploads/2019/10/retail-innovation-changing-tech-consumer-employee-demands-1024x440.jpeg',
-            previewText: 'Awesome content!'
-          }
-        ])
-        resolve()
-      }, 1000)
-    })
+  async nuxtServerInit ({ commit }, context) {
+    try {
+      // data is object {} so I'll need to transfer it to array [] first
+      const res = await axios.get('https://blog-nuxt-0-default-rtdb.firebaseio.com/posts.json')
+      const postsArray = []
+      for (const key in res.data) {
+        postsArray.push({ ...res.data[key], id: key })
+      }
+      commit('posts/setPosts', postsArray)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
