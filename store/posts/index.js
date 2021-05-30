@@ -1,4 +1,3 @@
-import axios from 'axios'
 const state = () => ({
   posts: []
 })
@@ -13,7 +12,7 @@ const actions = {
   },
   async addPost ({ commit }, post) {
     try {
-      const res = await axios.post('https://blog-nuxt-0-default-rtdb.firebaseio.com/posts.json', {
+      const res = await this.$axios.post('/posts.json', {
         ...post,
         updatedDate: new Date()
       })
@@ -25,7 +24,7 @@ const actions = {
   },
   async editPost ({ commit }, post) {
     try {
-      await axios.put(`https://blog-nuxt-0-default-rtdb.firebaseio.com/posts/${post.id}.json`, post)
+      await this.$axios.put(`/posts/${post.id}.json`, post)
       commit('editPost', post)
     } catch (error) {
       // eslint-disable-next-line no-console

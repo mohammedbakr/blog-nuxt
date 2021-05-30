@@ -6,11 +6,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PostList from '@/components/Posts/PostList'
 export default {
-  components: {
-    PostList
-  },
   computed: {
     ...mapGetters({
       posts: 'posts/posts'

@@ -17,13 +17,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import PostList from '~/components/Posts/PostList.vue'
-import AppButton from '~/components/UI/AppButton.vue'
 export default {
-  components: {
-    PostList,
-    AppButton
-  },
   computed: {
     ...mapGetters({
       posts: 'posts/posts'

@@ -25,15 +25,8 @@
 </template>
 
 <script>
-import AppControlInput from '~/components/UI/AppControlInput.vue'
-import AppButton from '~/components/UI/AppButton.vue'
-
 export default {
   name: 'AdminAuthPage',
-  components: {
-    AppButton,
-    AppControlInput
-  },
   data () {
     return {
       isLogin: true

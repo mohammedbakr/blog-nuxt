@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import AdminPostForm from '~/components/admin/AdminPostForm.vue'
 export default {
   components: {
@@ -15,7 +14,7 @@ export default {
   },
   async asyncData (context) {
     try {
-      const res = await axios.get(`https://blog-nuxt-0-default-rtdb.firebaseio.com/posts/${context.params.postId}.json`)
+      const res = await context.app.$axios.get(`/posts/${context.params.postId}.json`)
       return {
         post: { ...res.data, id: context.params.postId }
       }
