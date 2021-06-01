@@ -7,6 +7,13 @@
       >
         Create post
       </app-button>
+      <app-button
+        type="button"
+        style="margin-left: 10px"
+        @click="onLogout"
+      >
+        Log out
+      </app-button>
     </section>
     <section class="existing-posts">
       <h1>Existing Posts</h1>
@@ -18,10 +25,17 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  middleware: ['check-auth', 'auth'],
   computed: {
     ...mapGetters({
-      posts: 'posts/posts'
+      posts: 'post/posts'
     })
+  },
+  methods: {
+    onLogout () {
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/admin/auth')
+    }
   }
 }
 </script>

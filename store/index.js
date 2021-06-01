@@ -7,7 +7,7 @@ export const actions = {
       for (const key in res.data) {
         postsArray.push({ ...res.data[key], id: key })
       }
-      commit('posts/setPosts', postsArray)
+      commit('post/setPosts', postsArray)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)

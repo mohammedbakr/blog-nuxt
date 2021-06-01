@@ -12,6 +12,8 @@ export default {
   components: {
     AdminPostForm
   },
+  // order of middlewares is important
+  middleware: ['check-auth', 'auth'],
   async asyncData (context) {
     try {
       const res = await context.app.$axios.get(`/posts/${context.params.postId}.json`)
@@ -24,7 +26,7 @@ export default {
   },
   methods: {
     onSubmit (post) {
-      this.$store.dispatch('posts/editPost', post)
+      this.$store.dispatch('post/editPost', post)
         .then(() => this.$router.push('/admin'))
     }
   }

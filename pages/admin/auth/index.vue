@@ -2,10 +2,10 @@
   <div class="admin-auth-page">
     <div class="auth-container">
       <form @submit.prevent="onSubmit">
-        <app-control-input type="email">
+        <app-control-input v-model="email" type="email">
           E-Mail Address
         </app-control-input>
-        <app-control-input type="password">
+        <app-control-input v-model="password" type="password">
           Password
         </app-control-input>
         <app-button type="submit">
@@ -29,13 +29,23 @@ export default {
   name: 'AdminAuthPage',
   data () {
     return {
-      isLogin: true
+      isLogin: true,
+      email: '',
+      password: ''
     }
   },
   methods: {
     onSubmit () {
-      // eslint-disable-next-line no-console
-      console.log(this.isLogin)
+      const user = {
+        email: this.email,
+        password: this.password,
+        returnSecureToken: true
+      }
+      this.$store.dispatch('auth/createAndLogin', {
+        user,
+        isLogin: this.isLogin
+      })
+        .then(() => this.$router.push('/admin'))
     }
   }
 }

@@ -10,22 +10,22 @@ const actions = {
   setPosts ({ commit }, posts) {
     commit('setPosts', posts)
   },
-  async addPost ({ commit }, post) {
+  async addPost (store, post) {
     try {
-      const res = await this.$axios.post('/posts.json', {
+      const res = await this.$axios.post(`/posts.json?auth=${store.rootState.auth.token}`, {
         ...post,
         updatedDate: new Date()
       })
-      commit('addPost', { ...post, id: res.data.name })
+      store.commit('addPost', { ...post, id: res.data.name })
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)
     }
   },
-  async editPost ({ commit }, post) {
+  async editPost (store, post) {
     try {
-      await this.$axios.put(`/posts/${post.id}.json`, post)
-      commit('editPost', post)
+      await this.$axios.put(`/posts/${post.id}.json?auth=${store.rootState.auth.token}`, post)
+      store.commit('editPost', post)
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error)

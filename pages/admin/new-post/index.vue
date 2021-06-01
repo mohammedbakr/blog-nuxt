@@ -12,9 +12,10 @@ export default {
   components: {
     AdminPostForm
   },
+  middleware: ['check-auth', 'auth'],
   methods: {
     onSubmit (post) {
-      this.$store.dispatch('posts/addPost', post)
+      this.$store.dispatch('post/addPost', post)
         .then(() => this.$router.push('/admin'))
     }
   }
